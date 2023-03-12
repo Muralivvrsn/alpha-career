@@ -16,8 +16,12 @@ const educationSchema = new Schema({
 })
 
 const newCandidate = new Schema({
-    name:{
+    firstName:{
         type: String,
+        required:true
+    },
+    lastName:{
+        type:String,
         required:true
     },
     email:{

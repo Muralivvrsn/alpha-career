@@ -7,33 +7,21 @@ const router = express.Router();
 const Candidate = require('../database/models/candidate');
 
 router.post('/register/candidate',function(req,res){
-    
-    try {
-      // Get user input
-        const { firstName, email, password, projects } = req.body;
-    
-        // Validate user input
-    
-        // check if user already exist
-        // Validate if user exist in our database
-    
-    
-        //Encrypt user password
-        encryptedPassword = bcrypt.hash(password, 10);
-        const candidate = new Candidate({
-            name:firstName,
-            email:email,
-            password:password,
-            projects:projects
-        })
-        candidate.save();
-        res.send(candidate)
-        // Create user in our database
-        
+    const {firstName,lastName, email,password} = req.body;
+    let oldUser = Candidate.find({email})
+    console.log(oldUser)
+    console.log(email)
+    if(!oldUser){
+        res.send("User already exists");
     }
-    catch(err){
-        console.log(err)
-    }
+    const user = new Candidate({
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        password:password
+    })
+    user.save();
+    res.json(user);
 });
 router.post('/jobs',function(req,res){
     const Job = new Jobs({
