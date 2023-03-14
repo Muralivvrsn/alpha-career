@@ -7,10 +7,9 @@ const router = express.Router();
 const Candidate = require('../database/models/candidate');
 
 router.post('/register/candidate',function(req,res){
-    const {firstName,lastName, email,password} = req.body;
-    let oldUser = Candidate.find({email})
-    console.log(oldUser)
-    console.log(email)
+    const {name, email ,password} = req.body;
+    let oldUser = Candidate.findOne({email:email})
+    console.log(oldUser);
     if(!oldUser){
         res.send("User already exists");
     }
